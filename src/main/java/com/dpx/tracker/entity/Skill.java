@@ -4,6 +4,8 @@ import com.dpx.tracker.enums.SkillType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -25,4 +27,11 @@ public class Skill {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @ManyToMany(mappedBy = "skills")
+    private List<Employee> employees = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "skill_level_id", nullable = false)
+    private SkillLevel skillLevel;
 }
