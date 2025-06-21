@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -36,4 +38,6 @@ public class Company {
     @Column(name = "founded_date", nullable = false)
     private LocalDate foundedDate;
 
+    @OneToMany(mappedBy = "companies", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Department> departments = new HashSet<>();
 }

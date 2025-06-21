@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -48,6 +50,20 @@ public class Employee {
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
+    @ManyToMany
+    @JoinTable(
+            name = "employees_skills",
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "skill_id")}
+    )
+    private List<Skill> skills = new ArrayList<>();
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<PerformanceEvaluation> performanceEvaluations = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
 
 }

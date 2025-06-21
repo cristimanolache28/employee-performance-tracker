@@ -22,4 +22,9 @@ public class SkillLevel {
 
     @Column(name = "points",nullable = false)
     private int points;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "skill_level_stage_id", nullable = false)
+    private SkillLevelStage skillLevelStage;
 }
+

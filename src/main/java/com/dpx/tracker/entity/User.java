@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -32,6 +34,14 @@ public class User {
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns ={@JoinColumn(name = "role_id")}
+    )
+    private Set<Role> roles = new HashSet<>();
 
 
 }

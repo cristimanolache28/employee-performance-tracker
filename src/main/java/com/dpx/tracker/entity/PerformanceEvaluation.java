@@ -33,4 +33,7 @@ public class PerformanceEvaluation {
     @Column(name = "note")
     private String note;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
 }
