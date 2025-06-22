@@ -11,4 +11,4 @@ The main goal is to track employee performance based on points earned through th
 Based on total points earned, employees are assigned an organizational hierarchy level.
 
 ## Database Relationships 🧩
-![images](images/database-relationships.png)
+[![Database Relationships](images/database-relationships.png)](images/database-relationships.png)
