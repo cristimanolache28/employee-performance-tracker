@@ -1,14 +1,14 @@
 package com.dpx.tracker.entity;
 
+import com.dpx.tracker.enums.Industry;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class Company {
     @GeneratedValue
     private UUID uuid;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "country", nullable = false)
@@ -32,12 +32,20 @@ public class Company {
     @Column(name = "address", nullable = false)
     private String address;
 
-    // TODO: to change with a enum
-    private String industry;
+    @Column(name = "industry", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Industry industry;
 
     @Column(name = "founded_date", nullable = false)
     private LocalDate foundedDate;
 
-    @OneToMany(mappedBy = "companies", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "description", nullable = false)
+    @Size(min = 10, message = "The description must have at least 10 characters")
+    private String description;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>();
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees = new ArrayList<>();
 }
