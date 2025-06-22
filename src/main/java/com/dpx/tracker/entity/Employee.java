@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -30,6 +30,9 @@ public class Employee {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "CNP", nullable = false, unique = true)
+    private String CNP;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "general_level", nullable = false)
     private GeneralLevel generalLevel;
@@ -45,9 +48,40 @@ public class Employee {
     @Column(name = "educational_stage", nullable = false)
     private EducationalStage educationalStage;
 
-    @Column(name = "birthday", nullable = false)
-    private LocalDate birthday;
+    @Column(name = "birth_day", nullable = false)
+    private LocalDate birthDay;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDate createdAt;
 
+    @Column(name = "update_at")
+    private LocalDate updateAt;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PerformanceEvaluation> performanceEvaluations = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_id", nullable = false)
+    private Position position;
+
+    @ManyToMany
+    @JoinTable(
+            name = "employees_skills",
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "skill_id")},
+            uniqueConstraints = @UniqueConstraint(columnNames = {"employee_id", "skill_id"})
+    )
+    private Set<Skill> skills = new HashSet<>();
 }

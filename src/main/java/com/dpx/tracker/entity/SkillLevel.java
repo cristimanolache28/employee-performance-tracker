@@ -17,9 +17,14 @@ public class SkillLevel {
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "points",nullable = false)
     private int points;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "skill_level_stage_id", nullable = false)
+    private SkillLevelStage skillLevelStage;
 }
+

@@ -7,13 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "roles")
+@Table(name = "Roles")
 public class Role {
     @Id
     @GeneratedValue
@@ -25,4 +27,7 @@ public class Role {
     @Size(min = 10, message = "The description must to have at least 10 characters")
     @Column(name = "description", nullable = false)
     private String description;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 }
