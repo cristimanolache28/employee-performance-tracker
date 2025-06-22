@@ -32,8 +32,17 @@ public class User {
     @Column(name = "end_work_date")
     private LocalDate endWorkDate;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDate createdAt;
+
+    @Column(name = "update_at")
+    private LocalDate updateAt;
+
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
+
+    @OneToOne(mappedBy = "user")
+    private Employee employee;
 
     @ManyToMany
     @JoinTable(
@@ -42,6 +51,4 @@ public class User {
             inverseJoinColumns ={@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles = new HashSet<>();
-
-
 }

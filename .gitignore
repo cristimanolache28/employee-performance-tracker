@@ -34,3 +34,6 @@ build/
 
 ### Database credentiale ###
 src/main/resources/application-dev.properties
+
+### Ignore notes file ###
+src/main/resources/notes
