@@ -1,8 +1,8 @@
-# 📌Employee Performance Tracker System (**SpringBoot** Backend API) 
+# 📌 Employee Performance Tracker System (**SpringBoot** Backend API) 
 
 --- 
 
-## Project Overview 📋
+## 📋 Project Overview 
 
 A backend system built with Spring Boot for managing employees, performance evaluations, and skill progression within an organization.
 
@@ -10,5 +10,5 @@ The main goal is to track employee performance based on points earned through th
 
 Based on total points earned, employees are assigned an organizational hierarchy level.
 
-## Database Relationships 🧩
+## 🧩 Database Relationships 
 [![Database Relationships](images/database-relationships.png)](images/database-relationships.png)
