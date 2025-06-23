@@ -11,11 +11,12 @@ The main goal is to track employee performance based on points earned through th
 Based on total points earned, employees are assigned an organizational hierarchy level.
 
 ## 🧩 Database Relationships 
+
 [![Database Relationships](images/database-relationships.png)](images/database-relationships.png)
 
-🧠 Core Entities & Relationships
+## 🧠 Core Entities & Relationships
 
-User: id, email, password, start_work_date, end_work_date, is_active, create_at, update_at (One-to-One with Employee, Many-to-Many with Role via users_roles)
+* **`User:`** `id`, `email`, `password`, `is_active`, `create_at`, `update_at` (One-to-One with Employee, Many-to-Many with Role via users_roles)
 
 Employee: id, first_name, middle_name, last_name, CNP, general_level, address, gender, education_stage, birthDate, create_at, update_at, department_id, company_id, position_id, user_id (One-to-One with User, Many-to-One with Department, Company, and Position, Many-to-Many with Skill via employees_skills, One-to-Many with PerformanceEvaluation as both evaluated and evaluator)
 
