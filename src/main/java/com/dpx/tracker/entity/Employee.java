@@ -51,11 +51,14 @@ public class Employee {
     @Column(name = "birth_day", nullable = false)
     private LocalDate birthDay;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDate createdAt;
-
     @Column(name = "update_at")
     private LocalDate updateAt;
+
+    @Column(name = "start_work_date", nullable = false, updatable = false)
+    private LocalDate startWorkDate;
+
+    @Column(name = "end_work_date")
+    private LocalDate endWorkDate;
 
     @OneToOne
     @JoinColumn(name = "user_id")
