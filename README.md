@@ -18,7 +18,7 @@ Based on total points earned, employees are assigned an organizational hierarchy
 
 * **`User:`** `id`, `email`, `password`, `is_active`, `create_at`, `update_at` (One-to-One with Employee, Many-to-Many with Role via users_roles)
 
-Employee: id, first_name, middle_name, last_name, CNP, general_level, address, gender, education_stage, birthDate, create_at, update_at, department_id, company_id, position_id, user_id (One-to-One with User, Many-to-One with Department, Company, and Position, Many-to-Many with Skill via employees_skills, One-to-Many with PerformanceEvaluation as both evaluated and evaluator)
+* **`Employee:`** `id`, `first_name`, `middle_name`, `last_name`, `CNP`, `general_level`, `address`, `gender`, `education_stage`, `birthDate`, `create_at`, `update_at`, `department_id`, `company_id`, `position_id`, `user_id` (One-to-One with `**User**`, Many-to-One with `**Department**`, `**Company**`, and `**Position**`, Many-to-Many with `**Skill**` via employees_skills, One-to-Many with `**PerformanceEvaluation**` as both evaluated and evaluator)
 
 Company: id, name, country, location, address, industry, founded_date, description (One-to-Many with Department and Employee)
 
