@@ -2,10 +2,7 @@ package com.dpx.tracker.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +10,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "Roles")
 public class Role {
@@ -30,4 +26,14 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
+
+    public Role(UUID id, String role, String description, Set<User> users) {
+        this.id = id;
+        this.role = role;
+        this.description = description;
+        this.users = users;
+    }
+
+    public Role() {
+    }
 }
