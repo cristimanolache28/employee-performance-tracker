@@ -17,7 +17,7 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue
-    private UUID uuid;
+    private UUID id;
 
     @Email
     @Column(name = "email", nullable = false, unique = true)
@@ -26,20 +26,14 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "start_work_date", nullable = false)
-    private LocalDate startWorkDate;
-
-    @Column(name = "end_work_date")
-    private LocalDate endWorkDate;
-
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDate createdAt;
 
     @Column(name = "update_at")
     private LocalDate updateAt;
 
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @Column(name = "is_employed", nullable = false)
+    private Boolean isEmployed;
 
     @OneToOne(mappedBy = "user")
     private Employee employee;
@@ -51,4 +45,18 @@ public class User {
             inverseJoinColumns ={@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles = new HashSet<>();
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String email, String password, Boolean isEmployed, LocalDate updateAt, Set<Role> roles) {
+        this.email = email;
+        this.password = password;
+        this.isEmployed = isEmployed;
+        this.updateAt = updateAt;
+        this.roles = roles;
+    }
+
 }
