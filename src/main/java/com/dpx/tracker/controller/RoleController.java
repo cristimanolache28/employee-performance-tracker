@@ -4,11 +4,14 @@ import com.dpx.tracker.dto.role.RoleCreateDto;
 import com.dpx.tracker.dto.role.RoleResponseDto;
 import com.dpx.tracker.service.RoleService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @RestController
 @RequestMapping("/api/v1/roles")
@@ -22,7 +25,26 @@ public class RoleController {
 
     @PostMapping
     public ResponseEntity<RoleResponseDto> createRole(@RequestBody RoleCreateDto createDto) {
-        return new ResponseEntity<>(roleService.createRole(createDto), HttpStatus.CREATED);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .contentType(APPLICATION_JSON)
+                .body(roleService.createRole(createDto));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RoleResponseDto> getRoleById(@PathVariable(name = "id") UUID id) {
+        return ResponseEntity
+                .ok()
+                .contentType(APPLICATION_JSON)
+                .body(roleService.getRoleById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RoleResponseDto>> getAllRoles() {
+        return ResponseEntity
+                .ok()
+                .contentType(APPLICATION_JSON)
+                .body(roleService.getAllRoles());
     }
 
 }
