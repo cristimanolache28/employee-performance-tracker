@@ -50,4 +50,13 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+    public User(String email, String password, Boolean isEmployed, LocalDate updateAt, Set<Role> roles) {
+        this.email = email;
+        this.password = password;
+        this.isEmployed = isEmployed;
+        this.updateAt = updateAt;
+        this.roles = roles;
+    }
+
 }

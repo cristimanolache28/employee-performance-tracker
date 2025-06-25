@@ -1,8 +1,14 @@
 package com.dpx.tracker.dto.user;
 
+import com.dpx.tracker.util.ValidationDto;
+
+import java.util.Set;
+import java.util.UUID;
+
 public record UserCreateDto (
         String email,
-        String password
+        String password,
+        Set<UUID> roleId
 ) {
 
     public static Builder builder() {
@@ -12,6 +18,7 @@ public record UserCreateDto (
     public static class Builder {
         private String email;
         private String password;
+        private Set<UUID> roleIds;
 
         public Builder email(String email) {
             this.email = email;
@@ -23,33 +30,19 @@ public record UserCreateDto (
             return this;
         }
 
+        public Builder roleId(Set<UUID> roleId) {
+            this.roleIds = roleId;
+            return this;
+        }
+
         public UserCreateDto build() {
-            validateEmail(email);
-            validatePassword(password);
+            ValidationDto.validateEmail(email);
+            ValidationDto.validatePassword(password);
             return new UserCreateDto(
                     email,
-                    password
+                    password,
+                    roleIds
             );
         }
-
-        private void validateEmail(String email) {
-            if (email == null || email.isBlank()) {
-                throw new IllegalArgumentException("Email cannot be null or blank");
-            }
-            if (!email.matches("^[\\w-.]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
-                throw new IllegalArgumentException("Email format is invalid");
-            }
-        }
-
-        private void validatePassword(String password) {
-            if (password == null) {
-                throw new IllegalArgumentException("Password cannot be null");
-            }
-            if (password.length() < 5 || password.length() > 64) {
-                throw new IllegalArgumentException("Password length must be between 5 and 64 characters");
-            }
-        }
-
     }
-
 }
