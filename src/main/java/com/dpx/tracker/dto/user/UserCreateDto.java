@@ -18,7 +18,7 @@ public record UserCreateDto (
     public static class Builder {
         private String email;
         private String password;
-        private Set<UUID> roleIds;
+        private Set<UUID> roleId;
 
         public Builder email(String email) {
             this.email = email;
@@ -31,7 +31,7 @@ public record UserCreateDto (
         }
 
         public Builder roleId(Set<UUID> roleId) {
-            this.roleIds = roleId;
+            this.roleId = roleId;
             return this;
         }
 
@@ -41,7 +41,7 @@ public record UserCreateDto (
             return new UserCreateDto(
                     email,
                     password,
-                    roleIds
+                    roleId
             );
         }
     }

@@ -20,7 +20,7 @@ public class Role {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Size(min = 10, message = "The description must to have at least 10 characters")
+    @Size(min = 15, message = "The description must to have at least 15 characters")
     @Column(name = "description", nullable = false)
     private String description;
 

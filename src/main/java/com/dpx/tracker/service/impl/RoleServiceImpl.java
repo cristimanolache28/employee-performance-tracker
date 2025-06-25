@@ -6,7 +6,10 @@ import com.dpx.tracker.entity.Role;
 import com.dpx.tracker.mapper.RoleMapper;
 import com.dpx.tracker.repository.RoleRepository;
 import com.dpx.tracker.service.RoleService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -18,10 +21,10 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public RoleResponseDto createRole(RoleCreateDto dto) {
+        Objects.requireNonNull(dto, "RoleCreateDto cannot be null");
         Role role = RoleMapper.toEntity(dto);
-//        name.setName(dto.name());
-//        name.setDescription(dto.description());
         Role saved = roleRepository.save(role);
         return RoleMapper.toDto(saved);
     }
