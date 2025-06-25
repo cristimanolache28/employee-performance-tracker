@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record RoleResponseDto(
     UUID id,
-    String role,
+    String name,
     String description
 ) {
 
@@ -14,7 +14,7 @@ public record RoleResponseDto(
 
     public static class Builder {
         private UUID id;
-        private String role;
+        private String name;
         private String description;
 
         public Builder id(UUID id) {
@@ -22,8 +22,8 @@ public record RoleResponseDto(
             return this;
         }
 
-        public Builder role(String role) {
-            this.role = role;
+        public Builder role(String name) {
+            this.name = name;
             return this;
         }
 
@@ -35,7 +35,7 @@ public record RoleResponseDto(
         public RoleResponseDto build() {
             return new RoleResponseDto(
                     id,
-                    role,
+                    name,
                     description
             );
         }
