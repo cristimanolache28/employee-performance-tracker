@@ -4,8 +4,13 @@ package com.dpx.tracker.mapper;
 import com.dpx.tracker.dto.user.UserCreateDto;
 import com.dpx.tracker.dto.user.UserResponseDto;
 import com.dpx.tracker.dto.user.UserUpdateDto;
+import com.dpx.tracker.entity.Role;
 import com.dpx.tracker.entity.User;
+import com.dpx.tracker.repository.RoleRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class UserMapper {
@@ -24,16 +29,22 @@ public final class UserMapper {
         );
     }
 
-    public static User userUpdateDto(UserUpdateDto userUpdateDto) {
+    public static User userUpdateDto(UserUpdateDto userUpdateDto, RoleRepository roleRepository) {
         if (userUpdateDto == null) {
             return null;
         }
+
+        Set<Role> roles = userUpdateDto.roles().stream()
+                .map(roleId -> roleRepository.findById(roleId)
+                        .orElseThrow(() -> new EntityNotFoundException("Role not found: " + roleId)))
+                .collect(Collectors.toSet());
+
         return new User(
                 userUpdateDto.email(),
                 userUpdateDto.password(),
                 userUpdateDto.isEmployed(),
                 userUpdateDto.updateAt(),
-                userUpdateDto.roles()
+                roles
         );
     }
 
