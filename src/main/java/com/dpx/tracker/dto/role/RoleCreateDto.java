@@ -1,6 +1,7 @@
 package com.dpx.tracker.dto.role;
 
 
+import com.dpx.tracker.util.ValidationDto;
 
 public record  RoleCreateDto (
     String name,
@@ -25,6 +26,8 @@ public record  RoleCreateDto (
         }
 
         public RoleCreateDto build() {
+            ValidationDto.validateRoleName(name);
+            ValidationDto.validateRoleDescription(description);
             return new RoleCreateDto(
                     name,
                     description

@@ -12,7 +12,7 @@ public final class RoleMapper {
 
     public static Role toEntity(RoleCreateDto roleCreateDto) {
         Role role = new Role();
-        role.setName(roleCreateDto.name());
+        role.setName(roleCreateDto.name().toUpperCase());
         role.setDescription(roleCreateDto.description());
         return role;
     }

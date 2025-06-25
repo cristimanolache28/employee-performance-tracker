@@ -22,7 +22,7 @@ public record RoleResponseDto(
             return this;
         }
 
-        public Builder role(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
@@ -39,9 +39,5 @@ public record RoleResponseDto(
                     description
             );
         }
-
     }
-
-
-
  }
