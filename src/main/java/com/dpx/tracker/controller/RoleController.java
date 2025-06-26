@@ -1,5 +1,6 @@
 package com.dpx.tracker.controller;
 
+import com.dpx.tracker.dto.role.DeleteRoleResponse;
 import com.dpx.tracker.dto.role.RoleCreateDto;
 import com.dpx.tracker.dto.role.RoleResponseDto;
 import com.dpx.tracker.service.RoleService;
@@ -45,6 +46,14 @@ public class RoleController {
                 .ok()
                 .contentType(APPLICATION_JSON)
                 .body(roleService.getAllRoles());
+    }
+
+    @DeleteMapping("{/id}")
+    public ResponseEntity<DeleteRoleResponse> deleteRoleById(UUID id) {
+        return ResponseEntity
+                .ok()
+                .contentType(APPLICATION_JSON)
+                .body(roleService.deleteRoleById(id));
     }
 
 }
