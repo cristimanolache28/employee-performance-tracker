@@ -1,5 +1,6 @@
 package com.dpx.tracker.service;
 
+import com.dpx.tracker.dto.role.DeleteRoleResponse;
 import com.dpx.tracker.dto.role.RoleCreateDto;
 import com.dpx.tracker.dto.role.RoleResponseDto;
 
@@ -13,4 +14,6 @@ public interface RoleService {
     RoleResponseDto getRoleById(UUID id);
 
     public List<RoleResponseDto> getAllRoles();
+
+    DeleteRoleResponse deleteRoleById(UUID id);
 }
