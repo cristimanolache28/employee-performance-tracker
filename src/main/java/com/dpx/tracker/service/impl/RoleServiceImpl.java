@@ -73,4 +73,16 @@ public class RoleServiceImpl implements RoleService {
        log.info("Role with id {} was deleted successfully", id);
        return new DeleteRoleResponse(Messages.ROLE_DELETED, id, Instant.now());
     }
+
+    @Override
+    @Transactional
+    public RoleResponseDto updateRoleById(UUID id, RoleCreateDto roleCreateDto) {
+        Role role = roleRepository.findById(id)
+                .orElseThrow(() -> new RoleNotFoundException(MessageFormat.format(ErrorMessage.ROLE_NOT_FOUND, id)));
+
+        Role updatedRole = RoleMapper.toEntity(roleCreateDto);
+        roleRepository.save(updatedRole);
+        log.info("Role with id {} was updated with successfully.", id);
+        return RoleMapper.toDto(updatedRole);
+    }
 }
