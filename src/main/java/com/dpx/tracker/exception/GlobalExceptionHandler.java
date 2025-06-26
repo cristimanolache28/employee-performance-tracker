@@ -11,15 +11,16 @@ import java.time.Instant;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException e, HttpServletRequest request) {
-        ErrorResponse error = new ErrorResponse();
-        error.setErrorCode(e.getErrorCode());
-        error.setMessage(e.getMessage());
-        error.setStatus(e.getStatus().value());
-        error.setTimestamp(Instant.now());
-        error.setPath(request.getRequestURI());
-        return new ResponseEntity<>(error, e.getStatus());
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleBaseException(BaseException e, HttpServletRequest request) {
+        ErrorResponse response = new ErrorResponse(
+                e.getErrorCode(),
+                e.getMessage(),
+                e.getStatus().value(),
+                Instant.now(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(response, e.getStatus());
     }
 
 }
