@@ -16,4 +16,6 @@ public interface RoleService {
     public List<RoleResponseDto> getAllRoles();
 
     DeleteRoleResponse deleteRoleById(UUID id);
+
+    public RoleResponseDto updateRoleById(UUID id, RoleCreateDto roleCreateDto);
 }
