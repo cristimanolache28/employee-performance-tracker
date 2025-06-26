@@ -81,8 +81,11 @@ public class RoleServiceImpl implements RoleService {
                 .orElseThrow(() -> new RoleNotFoundException(MessageFormat.format(ErrorMessage.ROLE_NOT_FOUND, id)));
 
         Role updatedRole = RoleMapper.toEntity(roleCreateDto);
-        roleRepository.save(updatedRole);
+        role.setName(updatedRole.getName());
+        role.setDescription(updatedRole.getDescription());
+
+        roleRepository.save(role);
         log.info("Role with id {} was updated with successfully.", id);
-        return RoleMapper.toDto(updatedRole);
+        return RoleMapper.toDto(role);
     }
 }
