@@ -9,6 +9,7 @@ import com.dpx.tracker.entity.Role;
 import com.dpx.tracker.exception.RoleNotFoundException;
 import com.dpx.tracker.mapper.RoleMapper;
 import com.dpx.tracker.repository.RoleRepository;
+import com.dpx.tracker.repository.UserRepository;
 import com.dpx.tracker.service.RoleService;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +24,15 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class RoleServiceImpl implements RoleService {
+    private final UserRepository userRepository;
 
     private final RoleRepository roleRepository;
 
 
-    public RoleServiceImpl(RoleRepository roleRepository) {
+    public RoleServiceImpl(RoleRepository roleRepository,
+                           UserRepository userRepository) {
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -63,13 +67,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public DeleteRoleResponse deleteRoleById(UUID id) {
-        roleRepository.findById(id)
-                .ifPresentOrElse(role -> {
-                    roleRepository.delete(role);
-                    log.info("Role with id {} was deleted successfully", id);
-                }, () -> {
-                    throw new RoleNotFoundException(MessageFormat.format(ErrorMessage.ROLE_NOT_FOUND, id));
-                });
-        return new DeleteRoleResponse(Messages.ROLE_DELETED, id, Instant.now());
+       Role role = roleRepository.findById(id)
+                       .orElseThrow(() -> new RoleNotFoundException(MessageFormat.format(ErrorMessage.ROLE_NOT_FOUND, id)));
+       roleRepository.delete(role);
+       log.info("Role with id {} was deleted successfully", id);
+       return new DeleteRoleResponse(Messages.ROLE_DELETED, id, Instant.now());
     }
 }
