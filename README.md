@@ -45,6 +45,8 @@ Based on total points earned, employees are assigned an organizational hierarchy
   * *MASTER*: `VISIONARY`, `INFLUENTIAL`, `TRAILBLAZER`
 * **Industry**: `TECHNOLOGY`, `FINANCE`, `HEALTHCARE`, `EDUCATION`, `MANUFACTURING`, `RETAIL`, `TRANSPORTATION`, `ENERGY`, `REAL_ESTATE`, `ENTERTAINMENT`, `TELECOMMUNICATIONS`, `AGRICULTURE`, `CONSTRUCTION`, `HOSPITALITY`, `PROFESSIONAL_SERVICES`, `GOVERNMENT`, `NON_PROFIT`
 
+### 🔒 Authentication & Authorization
+
 ## 🚦 Getting Started
 ### Prerequisites
 Make sure you have these installed:
