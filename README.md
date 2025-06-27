@@ -7,9 +7,9 @@ A backend system built with Spring Boot for managing employees, performance eval
 The main goal is to track employee performance based on points earned through their skills, the level of each skill, and a sub-level associated with every skill level.
 Based on total points earned, employees are assigned an organizational hierarchy level.
 
-## 💻 Technologies Used (Backend Stack)
+## 💻 Technologies Used 
 * **Programming Language:** Java
-* **Framework:** Spring Boot (with Spring Data JPA, Spring Security, Spring Web)
+* **Framework:** Spring Boot (Spring Data JPA, Spring Security, Spring Web, Spring Validation, Spring Test)
 * **Database:** MySQL
 * **ORM:** Hibernate
 * **Security:** Spring Security, JSON Web Tokens (JWT)
