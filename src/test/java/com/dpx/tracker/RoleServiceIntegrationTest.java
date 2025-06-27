@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @SpringBootTest
@@ -78,6 +79,12 @@ public class RoleServiceIntegrationTest {
     }
 
     @Test
+    void testDeleteRoleWithInvalidId() {
+        UUID id = UUID.randomUUID();
+        assertThrows(RoleNotFoundException.class, () -> roleService.deleteRoleById(id));
+    }
+
+    @Test
     void testUpdateRole() {
         Role role = new Role();
         role.setName("USER_ROLE");
@@ -91,7 +98,13 @@ public class RoleServiceIntegrationTest {
 
         assertEquals(updateRole.name(), updateRoleResponse.name());
         assertEquals(updateRole.description(), updateRoleResponse.description());
+    }
 
+    @Test
+    void testUpdateRoleWithInvalidId() {
+        UUID id = UUID.randomUUID();
+        RoleCreateDto userRole = new RoleCreateDto("USER_TEST", "The USER role is a default role for every user created.");
+        assertThrows(RoleNotFoundException.class, () -> roleService.updateRoleById(id, userRole));
     }
 
 }
