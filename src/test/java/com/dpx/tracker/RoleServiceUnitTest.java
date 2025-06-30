@@ -70,4 +70,18 @@ public class RoleServiceUnitTest {
         verify(roleRepository, times(1)).delete(roleEntity);
     }
 
+    @Test
+    void getRoleByIdTest() {
+        UUID roleId = UUID.randomUUID();
+        Role roleEntity = RoleMapper.toEntity(role);
+        roleEntity.setId(roleId);
+
+        given(roleRepository.findById(roleId)).willReturn(Optional.of(roleEntity));
+
+        RoleResponseDto roleFounded = roleService.getRoleById(roleEntity.getId());
+
+        assertThat(roleFounded).isNotNull();
+        assertThat(roleEntity.getName()).isEqualTo(roleFounded.name());
+    }
+
 }
