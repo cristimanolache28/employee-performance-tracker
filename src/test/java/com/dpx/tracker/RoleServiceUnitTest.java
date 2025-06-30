@@ -14,8 +14,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import java.util.Optional;
 import java.util.UUID;
 
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -53,6 +55,19 @@ public class RoleServiceUnitTest {
        assertThat(expectedResult.description()).isEqualTo(role.description());
 
        verify(roleRepository, times(1)).save(any(Role.class));
+    }
+
+    @Test
+    void deleteRoleByIdTest() {
+        UUID roleId = UUID.randomUUID();
+        Role roleEntity = RoleMapper.toEntity(role);
+        roleEntity.setId(roleId);
+
+        given(roleRepository.findById(roleId)).willReturn(Optional.of(roleEntity));
+
+        roleService.deleteRoleById(roleId);
+
+        verify(roleRepository, times(1)).delete(roleEntity);
     }
 
 }
