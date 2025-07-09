@@ -1,0 +1,14 @@
+package com.dpx.tracker.dto.skilllevelstages;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+public record SkillLevelStageCreateDto(
+        @NotBlank String name,
+        @Size(min = 10, max = 50) String description,
+        @NotNull @Min(0) int points
+
+) {
+}
