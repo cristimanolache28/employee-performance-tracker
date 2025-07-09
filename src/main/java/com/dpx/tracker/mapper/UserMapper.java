@@ -8,7 +8,6 @@ import com.dpx.tracker.entity.Role;
 import com.dpx.tracker.entity.User;
 import com.dpx.tracker.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.Set;
 import java.util.stream.Collectors;
