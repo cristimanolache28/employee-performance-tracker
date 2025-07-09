@@ -27,7 +27,7 @@ public class Position {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @OneToMany(mappedBy = "position", orphanRemoval = true)
