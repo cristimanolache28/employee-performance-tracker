@@ -1,9 +1,9 @@
 package com.dpx.tracker.exception;
 
-import org.springframework.http.HttpStatus;
+import com.dpx.tracker.constants.ErrorCodes;
 
-public class PositionNotFoundException extends BaseException {
-    public PositionNotFoundException(String message, String errorCode, HttpStatus status) {
-        super(message, errorCode, status);
+public class PositionNotFoundException extends ResourceNotFoundException {
+    public PositionNotFoundException(String message) {
+        super(message, ErrorCodes.POSITION_NOT_FOUND);
     }
 }

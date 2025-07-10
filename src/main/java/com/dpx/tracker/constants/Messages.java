@@ -7,4 +7,6 @@ public final class Messages {
     }
 
     public static final String ROLE_DELETED = "The role was deleted.";
+
+    public static final String SKILL_LEVEL_STAGE_DELETED = "The skill level stage was deleted with successfully!";
 }

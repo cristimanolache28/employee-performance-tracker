@@ -21,7 +21,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public PositionResponseDto createPosition(PositionCreateDto dto) {
-        Objects.requireNonNull(dto, ErrorMessage.POSITION_CREATE_DTO_NULL);
+        Objects.requireNonNull(dto, ErrorMessage.POSITION_DTO_NULL);
         return null;
     }
 }

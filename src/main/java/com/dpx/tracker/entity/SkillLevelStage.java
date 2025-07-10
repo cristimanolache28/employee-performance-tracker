@@ -21,10 +21,11 @@ public class SkillLevelStage {
     @Column(name = "name",nullable = false, unique = true)
     private String name;
 
-    @Column(name = "points", nullable = false)
-    private int points;
-
     @Column(name = "description")
     @Size(min = 10, message = "The description must have at least 10 characters")
     private String description;
+
+    @Column(name = "points", nullable = false)
+    private int points;
+
 }
