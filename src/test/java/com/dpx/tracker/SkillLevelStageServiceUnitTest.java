@@ -13,9 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -52,6 +54,20 @@ public class SkillLevelStageServiceUnitTest {
         assertThat(result).isNotNull();
         assertThat(result.name()).isEqualTo(dto.name());
         assertThat(result.description()).isEqualTo(dto.description());
+    }
+
+    @Test
+    public void getSkillLevelStageByIdTest() {
+        UUID slsId = UUID.randomUUID();
+        SkillLevelStage entity = SkillLevelStageMapper.toEntity(dto);
+        entity.setId(slsId);
+
+        given(repository.findById(slsId)).willReturn(Optional.of(entity));
+
+        SkillLevelStageResponseDto responseDto = slsService.getSkillLevelStageById(entity.getId());
+
+        assertThat(responseDto).isNotNull();
+        assertThat(responseDto.name()).isEqualTo(entity.getName());
     }
 
 }
