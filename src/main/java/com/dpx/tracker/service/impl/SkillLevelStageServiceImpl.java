@@ -2,7 +2,7 @@ package com.dpx.tracker.service.impl;
 
 import com.dpx.tracker.constants.ErrorMessage;
 import com.dpx.tracker.constants.Messages;
-import com.dpx.tracker.dto.skilllevelstages.DeleteSkillLevelStageResponse;
+import com.dpx.tracker.dto.skilllevelstages.SkillLevelStageDeleteResponse;
 import com.dpx.tracker.dto.skilllevelstages.SkillLevelStageCreateDto;
 import com.dpx.tracker.dto.skilllevelstages.SkillLevelStageResponseDto;
 import com.dpx.tracker.entity.SkillLevelStage;
@@ -13,7 +13,6 @@ import com.dpx.tracker.service.SkillLevelStageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.text.MessageFormat;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -48,14 +47,14 @@ public class SkillLevelStageServiceImpl implements SkillLevelStageService {
     }
 
     @Override
-    public DeleteSkillLevelStageResponse deleteSkillLevelStageById(UUID id) {
+    public SkillLevelStageDeleteResponse deleteSkillLevelStageById(UUID id) {
         SkillLevelStage slsEntity = slsRepository.findById(id)
                 .orElseThrow(() -> new SkillLevelStageNotFoundException(
                         String.format(ErrorMessage.SKILL_LEVEL_STAGE_ID_NULL, id)));
         slsRepository.delete(slsEntity);
 
         log.info(Messages.SKILL_LEVEL_STAGE_DELETED);
-        return new DeleteSkillLevelStageResponse(Messages.SKILL_LEVEL_STAGE_DELETED, id, Instant.now());
+        return new SkillLevelStageDeleteResponse(Messages.SKILL_LEVEL_STAGE_DELETED, id, Instant.now());
     }
 
     @Override
@@ -70,4 +69,17 @@ public class SkillLevelStageServiceImpl implements SkillLevelStageService {
                 .toList();
     }
 
+    @Override
+    public SkillLevelStageResponseDto updateSkillLevelStageById(UUID id, SkillLevelStageCreateDto dto) {
+        SkillLevelStage skillLevelStage = slsRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelStageNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_STAGE_ID_NULL, id)));
+
+        skillLevelStage.setName(dto.name());
+        skillLevelStage.setDescription(dto.description());
+        skillLevelStage.setPoints(dto.points());
+
+        slsRepository.save(skillLevelStage);
+
+        return SkillLevelStageMapper.toDto(skillLevelStage);
+    }
 }
