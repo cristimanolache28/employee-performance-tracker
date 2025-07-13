@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 public record SkillLevelStageCreateDto(
         @NotBlank String name,
         @Size(min = 10, max = 50) String description,
-        @NotNull @Min(0) int points
+        @NotNull @Min(10) int points
 
 ) {
 }
