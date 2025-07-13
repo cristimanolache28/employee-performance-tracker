@@ -1,6 +1,11 @@
 package com.dpx.tracker.dto.skilllevel;
 
-public record SkillLevelDeleteDto(
+import java.time.Instant;
+import java.util.UUID;
 
+public record SkillLevelDeleteDto(
+        String message,
+        UUID id,
+        Instant timestamp
 ) {
 }
