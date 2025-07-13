@@ -9,9 +9,11 @@ import com.dpx.tracker.service.impl.SkillLevelStageServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jpa.domain.AbstractPersistable_;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +21,9 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @ExtendWith(MockitoExtension.class)
 public class SkillLevelStageServiceUnitTest {
@@ -68,6 +72,33 @@ public class SkillLevelStageServiceUnitTest {
 
         assertThat(responseDto).isNotNull();
         assertThat(responseDto.name()).isEqualTo(entity.getName());
+    }
+
+    @Test
+    public void updateSkillLevelStageByIdTest() {
+        UUID id = UUID.randomUUID();
+        SkillLevelStage originalDto = SkillLevelStageMapper.toEntity(dto);
+        originalDto.setId(id);
+
+        SkillLevelStageCreateDto dtoAfterUpdate = new SkillLevelStageCreateDto(
+                "Test Update",
+                "It is just a description made in test - Update",
+                100
+        );
+
+        when(repository.findById(id)).thenReturn(Optional.of(originalDto));
+        when(repository.save(any(SkillLevelStage.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        SkillLevelStageResponseDto result = slsService.updateSkillLevelStageById(id, dtoAfterUpdate);
+
+        ArgumentCaptor<SkillLevelStage> captor = ArgumentCaptor.forClass(SkillLevelStage.class);
+        verify(repository).save(captor.capture());
+
+        SkillLevelStage saved = captor.getValue();
+        assertThat(saved.getName()).isEqualTo("Test Update");
+        assertThat(saved.getDescription()).contains("Update");
+        assertThat(saved.getPoints()).isEqualTo(100);
+
     }
 
 }
