@@ -19,4 +19,6 @@ public interface SkillLevelStageService {
 
     List<SkillLevelStageResponseDto> getAllSkillLevelStages();
 
+    SkillLevelStageResponseDto updateSkillLevelStageById(UUID id, SkillLevelStageCreateDto dto);
+
 }

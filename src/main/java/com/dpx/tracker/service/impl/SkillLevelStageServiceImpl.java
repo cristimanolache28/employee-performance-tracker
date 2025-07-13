@@ -70,4 +70,17 @@ public class SkillLevelStageServiceImpl implements SkillLevelStageService {
                 .toList();
     }
 
+    @Override
+    public SkillLevelStageResponseDto updateSkillLevelStageById(UUID id, SkillLevelStageCreateDto dto) {
+        SkillLevelStage skillLevelStage = slsRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelStageNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_STAGE_ID_NULL, id)));
+
+        skillLevelStage.setName(dto.name());
+        skillLevelStage.setDescription(dto.description());
+        skillLevelStage.setPoints(dto.points());
+
+        slsRepository.save(skillLevelStage);
+
+        return SkillLevelStageMapper.toDto(skillLevelStage);
+    }
 }
