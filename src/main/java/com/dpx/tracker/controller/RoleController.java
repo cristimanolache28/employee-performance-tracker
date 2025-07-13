@@ -17,7 +17,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = EndpointConstants.ROLE_ENDPOINT, produces = APPLICATION_JSON_VALUE)
 public class RoleController {
-
     private final RoleService roleService;
 
     public RoleController(RoleService roleService) {

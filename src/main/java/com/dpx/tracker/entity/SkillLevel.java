@@ -20,6 +20,9 @@ public class SkillLevel {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Column(name = "points",nullable = false)
     private int points;
 
