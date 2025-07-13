@@ -7,5 +7,6 @@ public final class EndpointConstants {
     }
 
     public static final String ROLE_ENDPOINT = "/api/v1/roles";
+    public static final String SKILL_LEVEL_STAGE_ENDPOINT = "/api/v1/skill-level-stage";
 
 }
