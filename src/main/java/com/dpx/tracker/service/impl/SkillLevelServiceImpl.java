@@ -68,5 +68,18 @@ public class SkillLevelServiceImpl implements SkillLevelService {
         return SkillLevelMapper.toUpdateDto(skillLevel);
     }
 
+    @Override
+    public SkillLevelDeleteDto deleteSkillLevelById(UUID id) {
+        SkillLevel skillLevel = skillRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_ID_NULL, id)));
+
+        skillRepository.delete(skillLevel);
+
+        return new SkillLevelDeleteDto(
+                Messages.SKILL_LEVEL_DELETED,
+                id,
+                Instant.now()
+        );
+    }
 
 }

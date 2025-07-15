@@ -15,4 +15,6 @@ public interface SkillLevelService {
 
     public SkillLevelUpdateDto updateSkillLevelById(UUID id, SkillLevelUpdateDto dto);
 
+    SkillLevelDeleteDto deleteSkillLevelById(UUID id);
+
 }

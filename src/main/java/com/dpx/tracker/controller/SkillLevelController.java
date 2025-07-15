@@ -53,4 +53,12 @@ public class SkillLevelController {
                 .ok()
                 .body(skillService.updateSkillLevelById(id, dto));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SkillLevelDeleteDto> deleteSkillLevelById(@PathVariable(value = "id") UUID id) {
+        return ResponseEntity
+                .ok()
+                .body(skillService.deleteSkillLevelById(id));
+    }
+
 }
