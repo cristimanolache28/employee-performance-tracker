@@ -39,5 +39,15 @@ public final class SkillLevelMapper {
         );
     }
 
+    public static SkillLevelUpdateDto toUpdateDto(SkillLevel skillLevel) {
+        return  new SkillLevelUpdateDto(
+                skillLevel.getName(),
+                skillLevel.getDescription(),
+                skillLevel.getPoints()
+        );
+    }
+
+
+
 
 }

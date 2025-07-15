@@ -1,14 +1,23 @@
 package com.dpx.tracker.controller;
 
 import com.dpx.tracker.constants.EndpointConstants;
+import com.dpx.tracker.constants.ErrorMessage;
+import com.dpx.tracker.constants.Messages;
 import com.dpx.tracker.dto.skilllevel.SkillLevelCreateDto;
+import com.dpx.tracker.dto.skilllevel.SkillLevelDeleteDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelResponseDto;
+import com.dpx.tracker.dto.skilllevel.SkillLevelUpdateDto;
+import com.dpx.tracker.entity.SkillLevel;
+import com.dpx.tracker.exception.SkillLevelNotFoundException;
+import com.dpx.tracker.mapper.SkillLevelMapper;
 import com.dpx.tracker.service.SkillLevelService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -37,5 +46,11 @@ public class SkillLevelController {
                 .body(skillService.getSkillLevelById(id));
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<SkillLevelUpdateDto> updateSkillLevelById(@PathVariable(value = "id") UUID id,
+                                                                      @RequestBody @Valid SkillLevelUpdateDto dto) {
+        return ResponseEntity
+                .ok()
+                .body(skillService.updateSkillLevelById(id, dto));
+    }
 }

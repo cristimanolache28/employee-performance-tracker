@@ -54,4 +54,19 @@ public class SkillLevelServiceImpl implements SkillLevelService {
         return SkillLevelMapper.toDto(skillLevel);
     }
 
+    @Override
+    public SkillLevelUpdateDto updateSkillLevelById(UUID id, SkillLevelUpdateDto dto) {
+        SkillLevel skillLevel = skillRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_ID_NULL, id)));
+
+        skillLevel.setName(dto.name());
+        skillLevel.setDescription(dto.description());
+        skillLevel.setPoints(dto.points());
+
+        skillRepository.save(skillLevel);
+
+        return SkillLevelMapper.toUpdateDto(skillLevel);
+    }
+
+
 }

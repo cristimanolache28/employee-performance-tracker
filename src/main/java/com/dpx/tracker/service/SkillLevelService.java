@@ -13,4 +13,6 @@ public interface SkillLevelService {
 
     SkillLevelResponseDto getSkillLevelById(UUID id);
 
+    public SkillLevelUpdateDto updateSkillLevelById(UUID id, SkillLevelUpdateDto dto);
+
 }
