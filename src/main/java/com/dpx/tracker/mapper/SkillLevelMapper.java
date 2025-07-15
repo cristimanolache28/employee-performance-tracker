@@ -2,6 +2,7 @@ package com.dpx.tracker.mapper;
 
 import com.dpx.tracker.dto.skilllevel.SkillLevelCreateDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelResponseDto;
+import com.dpx.tracker.dto.skilllevel.SkillLevelUpdateDto;
 import com.dpx.tracker.dto.skilllevelstages.SkillLevelStageLiteDto;
 import com.dpx.tracker.entity.SkillLevel;
 import com.dpx.tracker.entity.SkillLevelStage;
@@ -37,5 +38,16 @@ public final class SkillLevelMapper {
                 stageLiteDto
         );
     }
+
+    public static SkillLevelUpdateDto toUpdateDto(SkillLevel skillLevel) {
+        return  new SkillLevelUpdateDto(
+                skillLevel.getName(),
+                skillLevel.getDescription(),
+                skillLevel.getPoints()
+        );
+    }
+
+
+
 
 }

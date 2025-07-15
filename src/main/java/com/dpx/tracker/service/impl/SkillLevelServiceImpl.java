@@ -1,8 +1,98 @@
 package com.dpx.tracker.service.impl;
 
+import com.dpx.tracker.constants.ErrorMessage;
+import com.dpx.tracker.constants.Messages;
+import com.dpx.tracker.dto.skilllevel.SkillLevelCreateDto;
+import com.dpx.tracker.dto.skilllevel.SkillLevelDeleteDto;
+import com.dpx.tracker.dto.skilllevel.SkillLevelResponseDto;
+import com.dpx.tracker.dto.skilllevel.SkillLevelUpdateDto;
+import com.dpx.tracker.entity.SkillLevel;
+import com.dpx.tracker.entity.SkillLevelStage;
+import com.dpx.tracker.exception.SkillLevelNotFoundException;
+import com.dpx.tracker.exception.SkillLevelStageNotFoundException;
+import com.dpx.tracker.mapper.SkillLevelMapper;
+import com.dpx.tracker.repository.SkillLevelRepository;
+import com.dpx.tracker.repository.SkillLevelStageRepository;
 import com.dpx.tracker.service.SkillLevelService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
+
+@Slf4j
 @Service
 public class SkillLevelServiceImpl implements SkillLevelService {
+
+    private final SkillLevelRepository skillRepository;
+
+    private final SkillLevelStageRepository stageRepository;
+
+    public SkillLevelServiceImpl(SkillLevelRepository skillRepository, SkillLevelStageRepository stageRepository) {
+        this.skillRepository = skillRepository;
+        this.stageRepository = stageRepository;
+    }
+
+    @Override
+    public SkillLevelResponseDto createSkillLevel(SkillLevelCreateDto skillCreateDto, UUID skillStageId) {
+        SkillLevelStage skillLevelStage = stageRepository.findById(skillStageId)
+                .orElseThrow(() -> new SkillLevelStageNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_STAGE_ID_NULL, skillStageId)));
+
+        SkillLevel skillLevel = SkillLevelMapper.toEntity(skillCreateDto, skillLevelStage);
+        skillRepository.save(skillLevel);
+        log.info("SkillLevel with id {} was created with successfully.", skillLevel.getId());
+        return SkillLevelMapper.toDto(skillLevel);
+
+    }
+
+    @Override
+    public SkillLevelResponseDto getSkillLevelById(UUID id) {
+        SkillLevel skillLevel = skillRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_ID_NULL, id)));
+
+        return SkillLevelMapper.toDto(skillLevel);
+    }
+
+    @Override
+    public SkillLevelUpdateDto updateSkillLevelById(UUID id, SkillLevelUpdateDto dto) {
+        SkillLevel skillLevel = skillRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_ID_NULL, id)));
+
+        skillLevel.setName(dto.name());
+        skillLevel.setDescription(dto.description());
+        skillLevel.setPoints(dto.points());
+
+        skillRepository.save(skillLevel);
+
+        return SkillLevelMapper.toUpdateDto(skillLevel);
+    }
+
+    @Override
+    public SkillLevelDeleteDto deleteSkillLevelById(UUID id) {
+        SkillLevel skillLevel = skillRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_ID_NULL, id)));
+
+        skillRepository.delete(skillLevel);
+
+        return new SkillLevelDeleteDto(
+                Messages.SKILL_LEVEL_DELETED,
+                id,
+                Instant.now()
+        );
+    }
+
+    @Override
+    public List<SkillLevelResponseDto> getAllSkillLevels() {
+        List<SkillLevel> skillLevels = skillRepository.findAll();
+
+        if (skillLevels.isEmpty()) {
+            throw new SkillLevelNotFoundException(ErrorMessage.SKILL_LEVEL_LIST_EMPTY);
+        }
+
+        return skillLevels.stream()
+                .map(SkillLevelMapper::toDto)
+                .toList();
+    }
+
 }

@@ -17,4 +17,5 @@ public final class ErrorMessage {
 
     public static final String SKILL_LEVEL_ID_NULL = "SkillLevel with id %s not found.";
     public static final String SKILL_LEVEL_DTO_NULL = "SkillLevel can not be null.";
+    public static final String SKILL_LEVEL_LIST_EMPTY = "SkillLevel list can not be empty.";
 }
