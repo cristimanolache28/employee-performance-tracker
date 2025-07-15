@@ -5,8 +5,10 @@ import com.dpx.tracker.constants.Messages;
 import com.dpx.tracker.dto.skilllevel.SkillLevelCreateDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelDeleteDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelResponseDto;
+import com.dpx.tracker.dto.skilllevel.SkillLevelUpdateDto;
 import com.dpx.tracker.entity.SkillLevel;
 import com.dpx.tracker.entity.SkillLevelStage;
+import com.dpx.tracker.exception.SkillLevelNotFoundException;
 import com.dpx.tracker.exception.SkillLevelStageNotFoundException;
 import com.dpx.tracker.mapper.SkillLevelMapper;
 import com.dpx.tracker.repository.SkillLevelRepository;
@@ -15,6 +17,7 @@ import com.dpx.tracker.service.SkillLevelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,21 +48,10 @@ public class SkillLevelServiceImpl implements SkillLevelService {
 
     @Override
     public SkillLevelResponseDto getSkillLevelById(UUID id) {
-        return null;
+        SkillLevel skillLevel = skillRepository.findById(id)
+                .orElseThrow(() -> new SkillLevelNotFoundException(String.format(ErrorMessage.SKILL_LEVEL_ID_NULL, id)));
+
+        return SkillLevelMapper.toDto(skillLevel);
     }
 
-    @Override
-    public SkillLevelResponseDto updateSkillLevelById(UUID id, SkillLevelCreateDto dto) {
-        return null;
-    }
-
-    @Override
-    public SkillLevelDeleteDto deleteSkillLevelById(UUID id) {
-        return null;
-    }
-
-    @Override
-    public List<SkillLevelResponseDto> getAllSkillLevels() {
-        return List.of();
-    }
 }

@@ -3,8 +3,7 @@ package com.dpx.tracker.service;
 import com.dpx.tracker.dto.skilllevel.SkillLevelCreateDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelDeleteDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelResponseDto;
-import com.dpx.tracker.dto.skilllevelstages.SkillLevelStageCreateDto;
-import com.dpx.tracker.entity.SkillLevelStage;
+import com.dpx.tracker.dto.skilllevel.SkillLevelUpdateDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,9 +13,4 @@ public interface SkillLevelService {
 
     SkillLevelResponseDto getSkillLevelById(UUID id);
 
-    SkillLevelResponseDto updateSkillLevelById(UUID id, SkillLevelCreateDto dto);
-
-    SkillLevelDeleteDto deleteSkillLevelById(UUID id);
-
-    List<SkillLevelResponseDto> getAllSkillLevels();
 }
