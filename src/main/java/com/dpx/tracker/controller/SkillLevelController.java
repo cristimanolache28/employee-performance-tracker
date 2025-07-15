@@ -1,22 +1,16 @@
 package com.dpx.tracker.controller;
 
 import com.dpx.tracker.constants.EndpointConstants;
-import com.dpx.tracker.constants.ErrorMessage;
-import com.dpx.tracker.constants.Messages;
 import com.dpx.tracker.dto.skilllevel.SkillLevelCreateDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelDeleteDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelResponseDto;
 import com.dpx.tracker.dto.skilllevel.SkillLevelUpdateDto;
-import com.dpx.tracker.entity.SkillLevel;
-import com.dpx.tracker.exception.SkillLevelNotFoundException;
-import com.dpx.tracker.mapper.SkillLevelMapper;
 import com.dpx.tracker.service.SkillLevelService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,6 +53,13 @@ public class SkillLevelController {
         return ResponseEntity
                 .ok()
                 .body(skillService.deleteSkillLevelById(id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<SkillLevelResponseDto>> getAllSkillLevels() {
+        return ResponseEntity
+                .ok()
+                .body(skillService.getAllSkillLevels());
     }
 
 }

@@ -82,4 +82,17 @@ public class SkillLevelServiceImpl implements SkillLevelService {
         );
     }
 
+    @Override
+    public List<SkillLevelResponseDto> getAllSkillLevels() {
+        List<SkillLevel> skillLevels = skillRepository.findAll();
+
+        if (skillLevels.isEmpty()) {
+            throw new SkillLevelNotFoundException(ErrorMessage.SKILL_LEVEL_LIST_EMPTY);
+        }
+
+        return skillLevels.stream()
+                .map(SkillLevelMapper::toDto)
+                .toList();
+    }
+
 }

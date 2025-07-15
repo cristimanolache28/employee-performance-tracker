@@ -17,4 +17,6 @@ public interface SkillLevelService {
 
     SkillLevelDeleteDto deleteSkillLevelById(UUID id);
 
+    List<SkillLevelResponseDto> getAllSkillLevels();
+
 }
